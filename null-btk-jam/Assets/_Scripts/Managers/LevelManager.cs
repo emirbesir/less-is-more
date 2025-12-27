@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip transitionSound;
 
+    public int LevelIndex { get; private set; } = 0;
     private bool isTransitioning;
 
     private void Awake()
@@ -45,6 +46,8 @@ public class LevelManager : MonoBehaviour
         {
             transitionImage.localScale = Vector3.zero;
         }
+
+        LevelIndex = 0;
     }
 
     public void LoadScene(int sceneIndex)
@@ -63,6 +66,7 @@ public class LevelManager : MonoBehaviour
         if (nextIndex < SceneManager.sceneCountInBuildSettings)
         {
             LoadScene(nextIndex);
+            LevelIndex++;
         }
         else
         {
