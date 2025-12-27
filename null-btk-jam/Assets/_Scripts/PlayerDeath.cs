@@ -2,9 +2,12 @@ using System.Collections.Generic;
 using TarodevController;
 using Unity.Cinemachine;
 using UnityEngine;
+using System;
 
 public class PlayerDeath : MonoBehaviour
-{
+{   
+    public event Action OnDeath;
+    
     [Header("Settings")] [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private PhysicsMaterial2D _corpsePhysicsMaterial;
     [SerializeField] private int _maxCorpses = 50;
@@ -34,6 +37,11 @@ public class PlayerDeath : MonoBehaviour
             _respawnPosition = _spawnPoint.position;
         else
             _respawnPosition = transform.position;
+    }
+
+    private void Start()
+    {
+        GameManager.Instance.SetPlayerDeathReference(this);
     }
 
     public static void SetRespawnPoint(Vector3 pos)
@@ -126,7 +134,10 @@ public class PlayerDeath : MonoBehaviour
             _corpses.RemoveAt(0);
             if (old != null) Destroy(old);
         }
-
+        
+        // Trigger OnDeath event
+        OnDeath?.Invoke();
+        
         // 5. Remove this script so it's no longer a "player"
         Destroy(this);
     }
