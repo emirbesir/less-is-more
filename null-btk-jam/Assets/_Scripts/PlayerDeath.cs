@@ -8,6 +8,7 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private PhysicsMaterial2D _corpsePhysicsMaterial;
     [SerializeField] private int _maxCorpses = 50;
+    [SerializeField] private Transform _spawnPoint; // Kept for initial spawn reference if needed
 
     private static readonly List<GameObject> _corpses = new();
     private static Vector3 _respawnPosition;
@@ -27,30 +28,16 @@ public class PlayerDeath : MonoBehaviour
         _playerAnimator = GetComponentInChildren<PlayerAnimator>();
         _animator = _playerAnimator?.GetComponentInChildren<Animator>();
 
-        // Initialize respawn position if it's the first player
-        if (!_hasRespawnPos)
-        {
+        if (_spawnPoint != null)
+            _respawnPosition = _spawnPoint.position;
+        else
             _respawnPosition = transform.position;
-            _hasRespawnPos = true;
-        }
+
     }
 
-    private void OnEnable()
+    public static void SetRespawnPoint(Vector3 pos)
     {
-        if (_controller != null) _controller.GroundedChanged += OnGroundedChanged;
-    }
-
-    private void OnDisable()
-    {
-        if (_controller != null) _controller.GroundedChanged -= OnGroundedChanged;
-    }
-
-    private void OnGroundedChanged(bool grounded, float impact)
-    {
-        if (grounded)
-        {
-            _respawnPosition = transform.position;
-        }
+        _respawnPosition = pos;
     }
 
     private void Update()
@@ -63,9 +50,41 @@ public class PlayerDeath : MonoBehaviour
 
     public void Die()
     {
+        // 0. Respawn FIRST (Before modifying this object)
+        if (_playerPrefab != null)
+        {
+            var newPlayer = Instantiate(_playerPrefab, _respawnPosition, Quaternion.identity);
+
+            // Ensure the new player is clean and dynamic
+            if (newPlayer.TryGetComponent<Rigidbody2D>(out var newRb))
+            {
+                newRb.bodyType = RigidbodyType2D.Dynamic;
+                newRb.linearVelocity = Vector2.zero;
+                newRb.angularVelocity = 0f;
+            }
+
+            // Ensure controller is enabled
+            if (newPlayer.TryGetComponent(out IPlayerController newController) && newController is MonoBehaviour newMb)
+            {
+                newMb.enabled = true;
+            }
+
+            // Ensure animations are enabled
+            var newPlayerAnim = newPlayer.GetComponentInChildren<PlayerAnimator>();
+            if (newPlayerAnim != null) newPlayerAnim.enabled = true;
+
+            var newAnim = newPlayerAnim?.GetComponentInChildren<Animator>();
+            if (newAnim != null) newAnim.enabled = true;
+        }
+        else
+        {
+            Debug.LogError("Player Prefab not assigned in PlayerDeath!");
+        }
+
         // 1. Disable Controller & Animations
         if (_controller is MonoBehaviour mb) mb.enabled = false;
         if (_animator != null) _animator.enabled = false;
+        if (_playerAnimator != null) _playerAnimator.enabled = false;
 
         // 2. Change Layer to Ground
         int groundLayer = LayerMask.NameToLayer("Ground");
@@ -77,7 +96,7 @@ public class PlayerDeath : MonoBehaviour
         {
             _col.sharedMaterial = _corpsePhysicsMaterial;
         }
-        
+
         // Freeze in place to act as a solid block
         _rb.linearVelocity = Vector2.zero;
         _rb.angularVelocity = 0f;
@@ -92,35 +111,7 @@ public class PlayerDeath : MonoBehaviour
             if (old != null) Destroy(old);
         }
 
-        // 5. Respawn
-        if (_playerPrefab != null)
-        {
-            var newPlayer = Instantiate(_playerPrefab, _respawnPosition, Quaternion.identity);
-            // Ensure the controller is enabled on the new player
-            if (newPlayer.TryGetComponent(out IPlayerController newController) && newController is MonoBehaviour newMb)
-            {
-                newMb.enabled = true;
-            }
-
-            if (newPlayer.TryGetComponent<Rigidbody2D>(out var newRb))
-            {
-                newRb.bodyType = RigidbodyType2D.Dynamic;
-            }
-
-            var playerAnimator = newPlayer.GetComponentInChildren<PlayerAnimator>();
-            var animator = playerAnimator?.GetComponentInChildren<Animator>();
-            if (animator != null)
-            {
-                animator.enabled = true;
-            }
-
-        }
-        else
-        {
-            Debug.LogError("Player Prefab not assigned in PlayerDeath!");
-        }
-
-        // 6. Remove this script so it's no longer a "player"
+        // 5. Remove this script so it's no longer a "player"
         Destroy(this);
     }
 }

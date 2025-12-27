@@ -9681,7 +9681,7 @@ GameObject:
   - component: {fileID: 6190505203557151349}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9794,6 +9794,7 @@ MonoBehaviour:
   _playerPrefab: {fileID: 5013563099109024275}
   _corpsePhysicsMaterial: {fileID: 6200000, guid: f0945afdee238365aaf6e7dea5022032, type: 2}
   _maxCorpses: 50
+  _spawnPoint: {fileID: 0}
 --- !u!1 &5216674694053063891
 GameObject:
   m_ObjectHideFlags: 0
@@ -14713,7 +14714,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1708409842899770794}
@@ -14762,12 +14763,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9ec0ca269ec0b4f4fa12877c83d9dd88, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c26d87bd82909b57daa89a8b4619f3bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 1, y: 1.4}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
