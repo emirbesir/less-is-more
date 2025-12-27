@@ -7,7 +7,10 @@ public class PressurePlate : MonoBehaviour
     [Header("Events")]
     public UnityEvent OnPressed;
     public UnityEvent OnReleased;
-
+    
+    [Header("Tags")]
+    [SerializeField] private LayerMask acceptableLayers;
+    
     [Header("Visuals")]
     [SerializeField] private Transform plateVisual;
     [SerializeField] private float pressedOffset = -0.1f;
@@ -23,7 +26,7 @@ public class PressurePlate : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Check for Player OR DeadCube
-        if (other.CompareTag("Player") || other.CompareTag("DeadCube"))
+        if (acceptableLayers == (acceptableLayers | (1 << other.gameObject.layer)))
         {
             objectsOnPlate++;
             if (objectsOnPlate >= 1)
@@ -35,7 +38,7 @@ public class PressurePlate : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("DeadCube"))
+        if (acceptableLayers == (acceptableLayers | (1 << other.gameObject.layer)))
         {
             objectsOnPlate--;
             if (objectsOnPlate <= 0)

@@ -103,7 +103,7 @@ public class PlayerDeath : MonoBehaviour
         if (_playerAnimator != null) _playerAnimator.enabled = false;
 
         // 2. Change Layer to Ground
-        int groundLayer = LayerMask.NameToLayer("Ground");
+        int groundLayer = LayerMask.NameToLayer("DeadBody");
         if (groundLayer != -1) gameObject.layer = groundLayer;
         else Debug.LogWarning("Layer 'Ground' not found. Corpse layer not changed.");
 
