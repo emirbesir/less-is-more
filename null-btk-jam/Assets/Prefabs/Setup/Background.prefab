@@ -198,7 +198,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxEffect
   cam: {fileID: 0}
-  parallaxEffect: 0.9
+  parallaxEffectX: 0.9
+  parallaxEffectY: 0.9
+  infiniteScrollX: 1
+  infiniteScrollY: 0
 --- !u!1 &4658525127103628501
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +400,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxEffect
   cam: {fileID: 0}
-  parallaxEffect: 0.7
+  parallaxEffectX: 0.4
+  parallaxEffectY: 0.9
+  infiniteScrollX: 1
+  infiniteScrollY: 1
 --- !u!1 &7654406031666221305
 GameObject:
   m_ObjectHideFlags: 0

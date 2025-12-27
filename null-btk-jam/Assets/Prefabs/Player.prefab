@@ -9685,6 +9685,7 @@ GameObject:
   - component: {fileID: 1104810989685270089}
   - component: {fileID: 5940739593984158393}
   - component: {fileID: 6190505203557151349}
+  - component: {fileID: 4704856135704284717}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -9801,6 +9802,19 @@ MonoBehaviour:
   _corpsePhysicsMaterial: {fileID: 6200000, guid: f0945afdee238365aaf6e7dea5022032, type: 2}
   _maxCorpses: 50
   _spawnPoint: {fileID: 0}
+--- !u!114 &4704856135704284717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5013563099109024275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6861057224944f208eb847da63735ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelRestart
+  restartKey: 106
 --- !u!1 &5216674694053063891
 GameObject:
   m_ObjectHideFlags: 0
@@ -14775,7 +14789,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: c26d87bd82909b57daa89a8b4619f3bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -34660,7 +34674,7 @@ TrailRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 964
   m_MaskInteraction: 0
   m_Time: 1
   m_PreviewTimeScale: 1

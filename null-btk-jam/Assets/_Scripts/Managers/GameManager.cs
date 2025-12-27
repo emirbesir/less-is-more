@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private DifficultySO difficulty;
-    [SerializeField] private LevelExit levelExitDoor;
     [SerializeField] private PlayerDeath playerDeath;
     
     public static GameManager Instance { get; private set; }

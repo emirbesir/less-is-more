@@ -37,6 +37,8 @@ public class PlayerDeath : MonoBehaviour
             _respawnPosition = _spawnPoint.position;
         else
             _respawnPosition = transform.position;
+        
+        transform.position = _respawnPosition;
     }
 
     private void Start()
