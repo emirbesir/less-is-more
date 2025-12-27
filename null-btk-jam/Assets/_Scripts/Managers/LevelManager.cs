@@ -78,6 +78,7 @@ public class LevelManager : MonoBehaviour
     public void RestartLevel()
     {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
+        GameManager.Instance.ResetLevelDeathCount();
         LoadScene(currentIndex);
     }
 
