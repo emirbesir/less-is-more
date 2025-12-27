@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using TarodevController;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
-    [Header("Settings")]
-    [SerializeField] private GameObject _playerPrefab;
+    [Header("Settings")] [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private PhysicsMaterial2D _corpsePhysicsMaterial;
     [SerializeField] private int _maxCorpses = 50;
     [SerializeField] private Transform _spawnPoint; // Kept for initial spawn reference if needed
+
+    public bool IsDead { get; private set; }
 
     private static readonly List<GameObject> _corpses = new();
     private static Vector3 _respawnPosition;
@@ -32,7 +34,6 @@ public class PlayerDeath : MonoBehaviour
             _respawnPosition = _spawnPoint.position;
         else
             _respawnPosition = transform.position;
-
     }
 
     public static void SetRespawnPoint(Vector3 pos)
@@ -50,10 +51,20 @@ public class PlayerDeath : MonoBehaviour
 
     public void Die()
     {
+        if (IsDead) return;
+        IsDead = true;
+
         // 0. Respawn FIRST (Before modifying this object)
         if (_playerPrefab != null)
         {
             var newPlayer = Instantiate(_playerPrefab, _respawnPosition, Quaternion.identity);
+
+            // Update Cinemachine target
+            var cinemachineCamera = FindFirstObjectByType<CinemachineCamera>();
+            if (cinemachineCamera != null)
+            {
+                cinemachineCamera.Target.TrackingTarget = newPlayer.transform;
+            }
 
             // Ensure the new player is clean and dynamic
             if (newPlayer.TryGetComponent<Rigidbody2D>(out var newRb))
@@ -83,14 +94,19 @@ public class PlayerDeath : MonoBehaviour
 
         // 1. Disable Controller & Animations
         if (_controller is MonoBehaviour mb) mb.enabled = false;
-        if (_animator != null) _animator.enabled = false;
+        if (_animator != null)
+        {
+            _animator.enabled = false;
+            _animator.transform.localScale = Vector3.one;
+        }
+
         if (_playerAnimator != null) _playerAnimator.enabled = false;
 
         // 2. Change Layer to Ground
         int groundLayer = LayerMask.NameToLayer("Ground");
         if (groundLayer != -1) gameObject.layer = groundLayer;
         else Debug.LogWarning("Layer 'Ground' not found. Corpse layer not changed.");
-        
+
         // 3. Handle Physics (Ragdoll & Friction)
         if (_corpsePhysicsMaterial != null)
         {
