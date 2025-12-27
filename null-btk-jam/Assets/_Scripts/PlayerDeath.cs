@@ -5,9 +5,9 @@ using UnityEngine;
 using System;
 
 public class PlayerDeath : MonoBehaviour
-{   
+{
     public event Action OnDeath;
-    
+
     [Header("Settings")] [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private PhysicsMaterial2D _corpsePhysicsMaterial;
     [SerializeField] private int _maxCorpses = 50;
@@ -33,11 +33,14 @@ public class PlayerDeath : MonoBehaviour
         _playerAnimator = GetComponentInChildren<PlayerAnimator>();
         _animator = _playerAnimator?.GetComponentInChildren<Animator>();
 
-        if (_spawnPoint != null)
-            _respawnPosition = _spawnPoint.position;
-        else
-            _respawnPosition = transform.position;
-        
+        if (!_hasRespawnPos)
+        {
+            if (_spawnPoint != null)
+                _respawnPosition = _spawnPoint.position;
+            else
+                _respawnPosition = transform.position;
+        }
+
         transform.position = _respawnPosition;
     }
 
@@ -46,9 +49,28 @@ public class PlayerDeath : MonoBehaviour
         GameManager.Instance.SetPlayerDeathReference(this);
     }
 
+    private void OnEnable()
+    {
+        GameManager.Instance.OnLevelCompleted += ResetSpawnPoint;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnLevelCompleted -= ResetSpawnPoint;
+    }
+    
+    private void ResetSpawnPoint()
+    {
+        if (_spawnPoint != null)
+        {
+            _hasRespawnPos = false;
+        }
+    }
+
     public static void SetRespawnPoint(Vector3 pos)
     {
         _respawnPosition = pos;
+        _hasRespawnPos = true;
     }
 
     private void Update()
@@ -136,10 +158,10 @@ public class PlayerDeath : MonoBehaviour
             _corpses.RemoveAt(0);
             if (old != null) Destroy(old);
         }
-        
+
         // Trigger OnDeath event
         OnDeath?.Invoke();
-        
+
         // 5. Remove this script so it's no longer a "player"
         Destroy(this);
     }

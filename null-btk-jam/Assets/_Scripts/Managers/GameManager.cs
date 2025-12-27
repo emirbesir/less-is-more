@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public event Action<int, int> OnDeathCountChanged;
+    public event Action OnLevelCompleted;
     
     [SerializeField] private DifficultySO difficulty;
     [SerializeField] private PlayerDeath playerDeath;
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
         RoomsCleared++;
         TotalDeathsInLevel = 0;
         Debug.Log($"Room Complete! Total: {RoomsCleared}");
+        OnLevelCompleted?.Invoke();
     }
 
     public void ResetRun()
