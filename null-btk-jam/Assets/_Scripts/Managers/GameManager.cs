@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public event Action<int, int> OnDeathCountChanged;
+    
     [SerializeField] private DifficultySO difficulty;
     [SerializeField] private PlayerDeath playerDeath;
     
@@ -10,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public int RoomsCleared { get; private set; } = 0;
     public int TotalDeathsInLevel { get; private set; } = 0;
+    public int TotalDeathsAllowedInCurrentLevel => 
+        difficulty.maxDeathsAllowedInLevel[LevelManager.Instance.LevelIndex];
     public int TotalDeathsInGame { get; private set; } = 0;
 
     private void Awake()
@@ -32,6 +37,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Player Died! Total Deaths in Level: {TotalDeathsInLevel}, Total Deaths in Game: {TotalDeathsInGame}");
         playerDeath.OnDeath -= HandlePlayerDeath;
         
+        OnDeathCountChanged?.Invoke(TotalDeathsInLevel, difficulty.maxDeathsAllowedInLevel[LevelManager.Instance.LevelIndex]);
         if (difficulty.maxDeathsAllowedInLevel[LevelManager.Instance.LevelIndex] <= TotalDeathsInLevel)
         {
             Debug.Log("Max deaths exceeded for this level. Resetting run.");
@@ -52,6 +58,11 @@ public class GameManager : MonoBehaviour
         TotalDeathsInLevel = 0;
         TotalDeathsInGame = 0;
         SceneManager.LoadScene("StartMenu"); // Make sure you have a scene named this, or change it
+    }
+
+    public void ResetLevelDeathCount()
+    {
+        TotalDeathsInLevel = 0;
     }
     
     public void SetPlayerDeathReference(PlayerDeath deathComponent)
