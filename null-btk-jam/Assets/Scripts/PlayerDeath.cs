@@ -8,10 +8,9 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private PhysicsMaterial2D _corpsePhysicsMaterial;
     [SerializeField] private int _maxCorpses = 50;
+    [SerializeField] private Transform _spawnPoint;
 
     private static readonly List<GameObject> _corpses = new();
-    private static Vector3 _respawnPosition;
-    private static bool _hasRespawnPos;
 
     private IPlayerController _controller;
     private Rigidbody2D _rb;
@@ -27,30 +26,7 @@ public class PlayerDeath : MonoBehaviour
         _playerAnimator = GetComponentInChildren<PlayerAnimator>();
         _animator = _playerAnimator?.GetComponentInChildren<Animator>();
 
-        // Initialize respawn position if it's the first player
-        if (!_hasRespawnPos)
-        {
-            _respawnPosition = transform.position;
-            _hasRespawnPos = true;
-        }
-    }
-
-    private void OnEnable()
-    {
-        if (_controller != null) _controller.GroundedChanged += OnGroundedChanged;
-    }
-
-    private void OnDisable()
-    {
-        if (_controller != null) _controller.GroundedChanged -= OnGroundedChanged;
-    }
-
-    private void OnGroundedChanged(bool grounded, float impact)
-    {
-        if (grounded)
-        {
-            _respawnPosition = transform.position;
-        }
+        transform.position = _spawnPoint.position;
     }
 
     private void Update()
@@ -95,7 +71,7 @@ public class PlayerDeath : MonoBehaviour
         // 5. Respawn
         if (_playerPrefab != null)
         {
-            var newPlayer = Instantiate(_playerPrefab, _respawnPosition, Quaternion.identity);
+            var newPlayer = Instantiate(_playerPrefab, _spawnPoint.position, Quaternion.identity);
             // Ensure the controller is enabled on the new player
             if (newPlayer.TryGetComponent(out IPlayerController newController) && newController is MonoBehaviour newMb)
             {
