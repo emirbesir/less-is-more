@@ -10,6 +10,7 @@ public class PlayerDeath : MonoBehaviour
 
     [Header("Settings")] [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private PhysicsMaterial2D _corpsePhysicsMaterial;
+    [SerializeField] private Sprite _deadSprite;
     [SerializeField] private int _maxCorpses = 50;
     [SerializeField] private Transform _spawnPoint; // Kept for initial spawn reference if needed
 
@@ -24,6 +25,7 @@ public class PlayerDeath : MonoBehaviour
     private Collider2D _col;
     private PlayerAnimator _playerAnimator;
     private Animator _animator;
+    private SpriteRenderer _renderer;
 
     private void Awake()
     {
@@ -32,6 +34,7 @@ public class PlayerDeath : MonoBehaviour
         _col = GetComponent<Collider2D>();
         _playerAnimator = GetComponentInChildren<PlayerAnimator>();
         _animator = _playerAnimator?.GetComponentInChildren<Animator>();
+        _renderer = _playerAnimator?.GetComponentInChildren<SpriteRenderer>();
 
         if (!_hasRespawnPos)
         {
@@ -158,6 +161,9 @@ public class PlayerDeath : MonoBehaviour
             _corpses.RemoveAt(0);
             if (old != null) Destroy(old);
         }
+        
+        // Update Sprite to Dead Sprite if assigned
+        _renderer.sprite = _deadSprite;
 
         // Trigger OnDeath event
         OnDeath?.Invoke();
