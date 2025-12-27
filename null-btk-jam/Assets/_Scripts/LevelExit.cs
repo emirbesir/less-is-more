@@ -7,6 +7,10 @@ public class LevelExit : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.CompleteRoom();
+            }
             LoadNextRoom();
         }
     }
