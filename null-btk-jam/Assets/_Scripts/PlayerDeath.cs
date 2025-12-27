@@ -90,7 +90,7 @@ public class PlayerDeath : MonoBehaviour
         int groundLayer = LayerMask.NameToLayer("Ground");
         if (groundLayer != -1) gameObject.layer = groundLayer;
         else Debug.LogWarning("Layer 'Ground' not found. Corpse layer not changed.");
-
+        
         // 3. Handle Physics (Ragdoll & Friction)
         if (_corpsePhysicsMaterial != null)
         {
@@ -100,7 +100,7 @@ public class PlayerDeath : MonoBehaviour
         // Freeze in place to act as a solid block
         _rb.linearVelocity = Vector2.zero;
         _rb.angularVelocity = 0f;
-        _rb.bodyType = RigidbodyType2D.Static;
+        _rb.bodyType = RigidbodyType2D.Kinematic;
 
         // 4. Manage Corpses
         _corpses.Add(gameObject);
