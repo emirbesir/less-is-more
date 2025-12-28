@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: e7adc37ed61b6df47851391b2b06f2bd
+AssetOrigin:
+  serializedVersion: 1
+  productId: 307044
+  packageName: Cartoon FX Pack
+  packageVersion: 1.0.4
+  assetPath: Assets/Cartoon FX Pack/Demo/Art/Textures/Pause.png
+  uploadId: 732410
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -141,10 +148,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 307044
-  packageName: Cartoon FX Pack
-  packageVersion: 1.0.4
-  assetPath: Assets/Cartoon FX Pack/Demo/Art/Textures/Pause.png
-  uploadId: 732410

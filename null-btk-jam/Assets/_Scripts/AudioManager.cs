@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager instance;
+    
     [SerializeField] private List<AudioClip> musicsToPlay;
     [SerializeField] private AudioSource musicSource;
     
@@ -12,6 +14,11 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         DontDestroyOnLoad(this);
     }
 

@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: cd1a18be0b894954b8fe5eeffea51fc1
+AssetOrigin:
+  serializedVersion: 1
+  productId: 307044
+  packageName: Cartoon FX Pack
+  packageVersion: 1.0.4
+  assetPath: Assets/Cartoon FX Pack/Source/Core/Textures/Default Square.png
+  uploadId: 732410
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -184,10 +191,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 307044
-  packageName: Cartoon FX Pack
-  packageVersion: 1.0.4
-  assetPath: Assets/Cartoon FX Pack/Source/Core/Textures/Default Square.png
-  uploadId: 732410

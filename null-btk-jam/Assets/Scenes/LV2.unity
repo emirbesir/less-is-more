@@ -30616,10 +30616,6 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 6203693659582737170}
-    - target: {fileID: 7320511343377345166, guid: e386aa0fc8c1c6e45903d3618c032951, type: 3}
-      propertyPath: infiniteScrollY
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7888442529003141684, guid: e386aa0fc8c1c6e45903d3618c032951, type: 3}
       propertyPath: cam
       value: 
@@ -30786,7 +30782,7 @@ GameObject:
   - component: {fileID: 1949140209}
   - component: {fileID: 1949140208}
   - component: {fileID: 1949140210}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}

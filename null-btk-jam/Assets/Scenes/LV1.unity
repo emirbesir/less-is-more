@@ -29160,7 +29160,7 @@ GameObject:
   - component: {fileID: 1949140209}
   - component: {fileID: 1949140208}
   - component: {fileID: 1949140210}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}

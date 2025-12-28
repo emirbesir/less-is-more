@@ -38047,7 +38047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1533254557171561815, guid: 0a3a80407befa774099223466bddeb87, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1533254557171561815, guid: 0a3a80407befa774099223466bddeb87, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -38065,8 +38065,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: WASD Space
       objectReference: {fileID: 0}
+    - target: {fileID: 3631277055070296964, guid: 0a3a80407befa774099223466bddeb87, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252382231457399699, guid: 0a3a80407befa774099223466bddeb87, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7223876369409082816, guid: 0a3a80407befa774099223466bddeb87, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7223876369409082816, guid: 0a3a80407befa774099223466bddeb87, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4711841294390006173, guid: 0a3a80407befa774099223466bddeb87, type: 3}
+    - {fileID: 7096325445135242009, guid: 0a3a80407befa774099223466bddeb87, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a3a80407befa774099223466bddeb87, type: 3}
@@ -38086,7 +38104,7 @@ GameObject:
   - component: {fileID: 1949140209}
   - component: {fileID: 1949140208}
   - component: {fileID: 1949140210}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}

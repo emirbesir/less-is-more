@@ -20801,9 +20801,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7320511343377345166, guid: e386aa0fc8c1c6e45903d3618c032951, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 6203693659582737170}
+    - target: {fileID: 7320511343377345166, guid: e386aa0fc8c1c6e45903d3618c032951, type: 3}
       propertyPath: infiniteScrollY
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7888442529003141684, guid: e386aa0fc8c1c6e45903d3618c032951, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 6203693659582737170}
     - target: {fileID: 9049432293842784699, guid: e386aa0fc8c1c6e45903d3618c032951, type: 3}
       propertyPath: m_Name
       value: Background
@@ -21118,7 +21126,7 @@ GameObject:
   - component: {fileID: 1949140209}
   - component: {fileID: 1949140208}
   - component: {fileID: 1949140210}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21446,6 +21454,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58b11e976217c9540bcb9c51c253d6e8, type: 3}
+--- !u!1 &6203693659582737170 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8997416686556841194, guid: 58b11e976217c9540bcb9c51c253d6e8, type: 3}
+  m_PrefabInstance: {fileID: 6203693659582737169}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6607079617479649877
 PrefabInstance:
   m_ObjectHideFlags: 0

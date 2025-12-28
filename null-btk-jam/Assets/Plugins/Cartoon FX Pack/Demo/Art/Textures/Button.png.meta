@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 9832c6c3e5a098f4dbd7e2bdbf264aae
+AssetOrigin:
+  serializedVersion: 1
+  productId: 307044
+  packageName: Cartoon FX Pack
+  packageVersion: 1.0.4
+  assetPath: Assets/Cartoon FX Pack/Demo/Art/Textures/Button.png
+  uploadId: 732410
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,10 +135,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 307044
-  packageName: Cartoon FX Pack
-  packageVersion: 1.0.4
-  assetPath: Assets/Cartoon FX Pack/Demo/Art/Textures/Button.png
-  uploadId: 732410
