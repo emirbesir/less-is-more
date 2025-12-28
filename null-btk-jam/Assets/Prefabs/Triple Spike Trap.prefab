@@ -46,6 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f979c60d63a56bd13acc7b890685a29a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spikeTextPopup:
+  - {fileID: 9064198041933742790, guid: 961e45c701fa88f49aa5d66a6b203c6c, type: 3}
+  - {fileID: 9064198041933742790, guid: 1b09572e0749ef7438d55efd9b2dfb0a, type: 3}
+  - {fileID: 9064198041933742790, guid: 2d482caf628181540a81bc7c45fe40a6, type: 3}
 --- !u!61 &577318790345721600
 BoxCollider2D:
   m_ObjectHideFlags: 0

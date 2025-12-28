@@ -3,15 +3,19 @@ using TarodevController;
 using Unity.Cinemachine;
 using UnityEngine;
 using System;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerDeath : MonoBehaviour
-{   
-    public event Action OnDeath;
-    
+{
+    public event Action<int> OnDeath;
+
     [Header("Settings")] [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private PhysicsMaterial2D _corpsePhysicsMaterial;
+    [SerializeField] private Sprite _deadSprite;
     [SerializeField] private int _maxCorpses = 50;
-    [SerializeField] private Transform _spawnPoint; // Kept for initial spawn reference if needed
+    [SerializeField] private Transform _spawnPoint; // Kept for initial spawn reference if neededp
+    [SerializeField] private AudioClip _deathSound;
+    [SerializeField] private Light2D _light2D;
 
     public bool IsDead { get; private set; }
 
@@ -24,6 +28,8 @@ public class PlayerDeath : MonoBehaviour
     private Collider2D _col;
     private PlayerAnimator _playerAnimator;
     private Animator _animator;
+    private SpriteRenderer _renderer;
+    private AudioSource _audioSource;
 
     private void Awake()
     {
@@ -32,12 +38,17 @@ public class PlayerDeath : MonoBehaviour
         _col = GetComponent<Collider2D>();
         _playerAnimator = GetComponentInChildren<PlayerAnimator>();
         _animator = _playerAnimator?.GetComponentInChildren<Animator>();
+        _renderer = _playerAnimator?.GetComponentInChildren<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
 
-        if (_spawnPoint != null)
-            _respawnPosition = _spawnPoint.position;
-        else
-            _respawnPosition = transform.position;
-        
+        if (!_hasRespawnPos)
+        {
+            if (_spawnPoint != null)
+                _respawnPosition = _spawnPoint.position;
+            else
+                _respawnPosition = transform.position;
+        }
+
         transform.position = _respawnPosition;
     }
 
@@ -46,20 +57,39 @@ public class PlayerDeath : MonoBehaviour
         GameManager.Instance.SetPlayerDeathReference(this);
     }
 
+    private void OnEnable()
+    {
+        GameManager.Instance.OnLevelCompleted += ResetSpawnPoint;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnLevelCompleted -= ResetSpawnPoint;
+    }
+    
+    private void ResetSpawnPoint()
+    {
+        if (_spawnPoint != null)
+        {
+            _hasRespawnPos = false;
+        }
+    }
+
     public static void SetRespawnPoint(Vector3 pos)
     {
         _respawnPosition = pos;
+        _hasRespawnPos = true;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            Die();
+            Die(1);
         }
     }
 
-    public void Die()
+    public void Die(int amount)
     {
         if (IsDead) return;
         IsDead = true;
@@ -137,9 +167,25 @@ public class PlayerDeath : MonoBehaviour
             if (old != null) Destroy(old);
         }
         
-        // Trigger OnDeath event
-        OnDeath?.Invoke();
+        // Update Sprite to Dead Sprite if assigned
+        _renderer.sprite = _deadSprite;
+        // Play Death Sound
+        if (_audioSource != null && _deathSound != null)
+        {
+            _audioSource.PlayOneShot(_deathSound);
+        }
+        // Disable Light on Death
+        if (_light2D != null)
+        {
+            _light2D.enabled = false;
+        }
         
+        // Volume Shake on Death
+        if (VolumeShaker.Instance != null) VolumeShaker.Instance.ShakeDeath();
+
+        // Trigger OnDeath event
+        OnDeath?.Invoke(amount);
+
         // 5. Remove this script so it's no longer a "player"
         Destroy(this);
     }

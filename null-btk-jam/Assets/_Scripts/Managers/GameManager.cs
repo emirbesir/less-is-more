@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public event Action<int, int> OnDeathCountChanged;
+    public event Action OnLevelCompleted;
     
     [SerializeField] private DifficultySO difficulty;
     [SerializeField] private PlayerDeath playerDeath;
@@ -30,10 +31,10 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); // Keep this object alive when switching scenes
     }
     
-    private void HandlePlayerDeath()
+    private void HandlePlayerDeath(int amount)
     {
-        TotalDeathsInLevel++;
-        TotalDeathsInGame++;
+        TotalDeathsInLevel += amount;
+        TotalDeathsInGame += amount;
         Debug.Log($"Player Died! Total Deaths in Level: {TotalDeathsInLevel}, Total Deaths in Game: {TotalDeathsInGame}");
         playerDeath.OnDeath -= HandlePlayerDeath;
         
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
         if (difficulty.maxDeathsAllowedInLevel[LevelManager.Instance.LevelIndex] <= TotalDeathsInLevel)
         {
             Debug.Log("Max deaths exceeded for this level. Resetting run.");
-            ResetRun();
+            LevelManager.Instance.RestartLevel();
         }
     }
     
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
         RoomsCleared++;
         TotalDeathsInLevel = 0;
         Debug.Log($"Room Complete! Total: {RoomsCleared}");
+        OnLevelCompleted?.Invoke();
     }
 
     public void ResetRun()
