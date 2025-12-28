@@ -83,10 +83,19 @@ public class PlayerDeath : MonoBehaviour
 
     private void Update()
     {
+        // Check for kill input - keyboard only since MobileButton calls Die directly
         if (Input.GetKeyDown(KeyCode.K))
         {
             Die(1);
         }
+    }
+
+    /// <summary>
+    /// Public method for mobile button to trigger death.
+    /// </summary>
+    public void TriggerDeath()
+    {
+        Die(1);
     }
 
     public void Die(int amount)

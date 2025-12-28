@@ -2,10 +2,11 @@
 
 public class LevelRestart : MonoBehaviour
 {
-    [SerializeField] private KeyCode restartKey = KeyCode.J;
+    [SerializeField] private KeyCode restartKey = KeyCode.T;
 
     void Update()
     {
+        // Check for restart input - keyboard only since MobileButton calls RestartLevel directly
         if (Input.GetKeyDown(restartKey))
         {
             RestartLevel();

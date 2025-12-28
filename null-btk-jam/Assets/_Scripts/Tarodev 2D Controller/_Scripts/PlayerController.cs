@@ -46,11 +46,16 @@ namespace TarodevController
 
         private void GatherInput()
         {
+            // Use MobileInputManager if available, otherwise fall back to direct input
+            bool hasManager = MobileInputManager.Instance != null;
+            
             _frameInput = new FrameInput
             {
-                JumpDown = Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.C),
-                JumpHeld = Input.GetButton("Jump") || Input.GetKey(KeyCode.C),
-                Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
+                JumpDown = hasManager ? MobileInputManager.Instance.GetJumpDown() : (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.C)),
+                JumpHeld = hasManager ? MobileInputManager.Instance.GetJumpHeld() : (Input.GetButton("Jump") || Input.GetKey(KeyCode.C)),
+                Move = hasManager 
+                    ? new Vector2(MobileInputManager.Instance.GetHorizontalInput(), MobileInputManager.Instance.GetVerticalInput())
+                    : new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
             };
 
             if (_stats.SnapInput)
