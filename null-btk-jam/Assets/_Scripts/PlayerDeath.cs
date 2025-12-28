@@ -3,6 +3,7 @@ using TarodevController;
 using Unity.Cinemachine;
 using UnityEngine;
 using System;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerDeath : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private PhysicsMaterial2D _corpsePhysicsMaterial;
     [SerializeField] private Sprite _deadSprite;
     [SerializeField] private int _maxCorpses = 50;
-    [SerializeField] private Transform _spawnPoint; // Kept for initial spawn reference if needed
+    [SerializeField] private Transform _spawnPoint; // Kept for initial spawn reference if neededp
+    [SerializeField] private AudioClip _deathSound;
+    [SerializeField] private Light2D _light2D;
 
     public bool IsDead { get; private set; }
 
@@ -26,6 +29,7 @@ public class PlayerDeath : MonoBehaviour
     private PlayerAnimator _playerAnimator;
     private Animator _animator;
     private SpriteRenderer _renderer;
+    private AudioSource _audioSource;
 
     private void Awake()
     {
@@ -35,6 +39,7 @@ public class PlayerDeath : MonoBehaviour
         _playerAnimator = GetComponentInChildren<PlayerAnimator>();
         _animator = _playerAnimator?.GetComponentInChildren<Animator>();
         _renderer = _playerAnimator?.GetComponentInChildren<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
 
         if (!_hasRespawnPos)
         {
@@ -164,6 +169,16 @@ public class PlayerDeath : MonoBehaviour
         
         // Update Sprite to Dead Sprite if assigned
         _renderer.sprite = _deadSprite;
+        // Play Death Sound
+        if (_audioSource != null && _deathSound != null)
+        {
+            _audioSource.PlayOneShot(_deathSound);
+        }
+        // Disable Light on Death
+        if (_light2D != null)
+        {
+            _light2D.enabled = false;
+        }
         
         // Volume Shake on Death
         if (VolumeShaker.Instance != null) VolumeShaker.Instance.ShakeDeath();

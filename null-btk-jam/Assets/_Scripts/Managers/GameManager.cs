@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         if (difficulty.maxDeathsAllowedInLevel[LevelManager.Instance.LevelIndex] <= TotalDeathsInLevel)
         {
             Debug.Log("Max deaths exceeded for this level. Resetting run.");
-            ResetRun();
+            LevelManager.Instance.RestartLevel();
         }
     }
     

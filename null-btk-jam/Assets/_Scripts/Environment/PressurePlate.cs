@@ -14,10 +14,18 @@ public class PressurePlate : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] private Transform plateVisual;
     [SerializeField] private float pressedOffset = -0.1f;
+    
+    [SerializeField] private AudioClip pressClip;
 
+    private AudioSource sfxSource;
     private int objectsOnPlate = 0;
     private Vector3 originalPos;
 
+    private void Awake()
+    {
+        sfxSource = GetComponent<AudioSource>();
+    }
+    
     void Start()
     {
         if(plateVisual) originalPos = plateVisual.localPosition;
@@ -53,11 +61,13 @@ public class PressurePlate : MonoBehaviour
     {
         OnPressed?.Invoke();
         if(plateVisual) plateVisual.DOLocalMoveY(originalPos.y + pressedOffset, 0.1f);
+        if(sfxSource && pressClip) sfxSource.PlayOneShot(pressClip);
     }
 
     void Release()
     {
         OnReleased?.Invoke();
         if(plateVisual) plateVisual.DOLocalMoveY(originalPos.y, 0.1f);
+        if (sfxSource && pressClip) sfxSource.PlayOneShot(pressClip);
     }
 }
