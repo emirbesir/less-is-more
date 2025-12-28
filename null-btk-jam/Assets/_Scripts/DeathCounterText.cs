@@ -23,6 +23,6 @@ public class DeathCounterText : MonoBehaviour
     
     private void UpdateDeathText(int currentDeaths, int maxDeaths)
     {
-        _playerDeathText.text = $"Deaths: {currentDeaths} / {maxDeaths}";
+        _playerDeathText.text = $"Ceset Sayısı: {currentDeaths} / {maxDeaths}";
     }
 }

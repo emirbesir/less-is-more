@@ -9800,6 +9800,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 5013563099109024275}
   _corpsePhysicsMaterial: {fileID: 6200000, guid: f0945afdee238365aaf6e7dea5022032, type: 2}
+  _deadSprite: {fileID: 21300000, guid: 2347b83f1a940534aad341c9d6a5df53, type: 3}
   _maxCorpses: 50
   _spawnPoint: {fileID: 0}
 --- !u!114 &4704856135704284717

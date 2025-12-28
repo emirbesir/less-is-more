@@ -164,6 +164,9 @@ public class PlayerDeath : MonoBehaviour
         
         // Update Sprite to Dead Sprite if assigned
         _renderer.sprite = _deadSprite;
+        
+        // Volume Shake on Death
+        if (VolumeShaker.Instance != null) VolumeShaker.Instance.ShakeDeath();
 
         // Trigger OnDeath event
         OnDeath?.Invoke();
