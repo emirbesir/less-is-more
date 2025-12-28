@@ -9,7 +9,7 @@ public class Spike : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out PlayerDeath player))
         {
-            player.Die();
+            player.Die(5);
             PickRandomPopup();
         }
     }
@@ -19,7 +19,7 @@ public class Spike : MonoBehaviour
     {
         if (collision.TryGetComponent(out PlayerDeath player))
         {
-            player.Die();
+            player.Die(5);
             PickRandomPopup();
         }
     }

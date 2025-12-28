@@ -7,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerDeath : MonoBehaviour
 {
-    public event Action OnDeath;
+    public event Action<int> OnDeath;
 
     [Header("Settings")] [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private PhysicsMaterial2D _corpsePhysicsMaterial;
@@ -85,11 +85,11 @@ public class PlayerDeath : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            Die();
+            Die(1);
         }
     }
 
-    public void Die()
+    public void Die(int amount)
     {
         if (IsDead) return;
         IsDead = true;
@@ -184,7 +184,7 @@ public class PlayerDeath : MonoBehaviour
         if (VolumeShaker.Instance != null) VolumeShaker.Instance.ShakeDeath();
 
         // Trigger OnDeath event
-        OnDeath?.Invoke();
+        OnDeath?.Invoke(amount);
 
         // 5. Remove this script so it's no longer a "player"
         Destroy(this);

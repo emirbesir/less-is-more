@@ -30574,11 +30574,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6197557638025431403, guid: e386aa0fc8c1c6e45903d3618c032951, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.5577698
+      value: -7.55777
       objectReference: {fileID: 0}
     - target: {fileID: 6197557638025431403, guid: e386aa0fc8c1c6e45903d3618c032951, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.4338007
+      value: -1.5661993
       objectReference: {fileID: 0}
     - target: {fileID: 6197557638025431403, guid: e386aa0fc8c1c6e45903d3618c032951, type: 3}
       propertyPath: m_LocalPosition.z
@@ -30691,7 +30691,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Dikenlere Dikkat
+  m_text: 'Dikenlere Dikkat !
+
+    5 Hak Yiyor!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 28aae21ab6231484d92506803b9f528c, type: 2}
   m_sharedMaterial: {fileID: -7386381316523070906, guid: 28aae21ab6231484d92506803b9f528c, type: 2}

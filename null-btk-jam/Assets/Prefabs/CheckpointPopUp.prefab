@@ -64,7 +64,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: -217648459
   m_SortingLayer: 1
-  m_SortingOrder: 10
+  m_SortingOrder: 66
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
 --- !u!1001 &106099913799104317
@@ -7079,9 +7079,9 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3330730853554894062}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -217648459
+  m_SortingLayer: 1
+  m_SortingOrder: 55
   m_SortAtRoot: 1
   m_Sort3DAs2D: 0
 --- !u!4 &5795220107604671726 stripped

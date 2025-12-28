@@ -102,7 +102,7 @@ public class Laser : MonoBehaviour
 
         if (exposureTimer >= timeToKill)
         {
-            deathScript.Die();
+            deathScript.Die(1);
             exposureTimer = 0f;
         }
     }

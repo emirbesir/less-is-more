@@ -31,10 +31,10 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); // Keep this object alive when switching scenes
     }
     
-    private void HandlePlayerDeath()
+    private void HandlePlayerDeath(int amount)
     {
-        TotalDeathsInLevel++;
-        TotalDeathsInGame++;
+        TotalDeathsInLevel += amount;
+        TotalDeathsInGame += amount;
         Debug.Log($"Player Died! Total Deaths in Level: {TotalDeathsInLevel}, Total Deaths in Game: {TotalDeathsInGame}");
         playerDeath.OnDeath -= HandlePlayerDeath;
         
